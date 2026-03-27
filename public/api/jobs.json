@@ -1,0 +1,34 @@
+{
+  "jobs": [
+    { "id": 1, "title": "Frontend Developer", "category": "Engineering", "description": "Build beautiful, responsive web interfaces." },
+    { "id": 2, "title": "Backend Developer", "category": "Engineering", "description": "Design and maintain scalable server-side applications." },
+    { "id": 3, "title": "UI/UX Designer", "category": "Design", "description": "Create intuitive user experiences and stunning visuals." },
+    { "id": 4, "title": "Data Analyst", "category": "Analytics", "description": "Turn data into actionable business insights." }
+  ],
+  "companiesByJob": {
+    "1": [
+      { "name": "Google", "domain": "google.com", "role": "Frontend Developer" },
+      { "name": "Meta", "domain": "meta.com", "role": "Frontend Developer" },
+      { "name": "Microsoft", "domain": "microsoft.com", "role": "Frontend Developer" },
+      { "name": "Netflix", "domain": "netflix.com", "role": "Frontend Developer" }
+    ],
+    "2": [
+      { "name": "Amazon", "domain": "amazon.com", "role": "Backend Developer" },
+      { "name": "IBM", "domain": "ibm.com", "role": "Backend Developer" },
+      { "name": "Oracle", "domain": "oracle.com", "role": "Backend Developer" },
+      { "name": "Uber", "domain": "uber.com", "role": "Backend Developer" }
+    ],
+    "3": [
+      { "name": "Apple", "domain": "apple.com", "role": "UI/UX Designer" },
+      { "name": "Adobe", "domain": "adobe.com", "role": "UI/UX Designer" },
+      { "name": "Airbnb", "domain": "airbnb.com", "role": "UI/UX Designer" },
+      { "name": "Spotify", "domain": "spotify.com", "role": "UI/UX Designer" }
+    ],
+    "4": [
+      { "name": "Google", "domain": "google.com", "role": "Data Analyst" },
+      { "name": "Tesla", "domain": "tesla.com", "role": "Data Analyst" },
+      { "name": "LinkedIn", "domain": "linkedin.com", "role": "Data Analyst" },
+      { "name": "Salesforce", "domain": "salesforce.com", "role": "Data Analyst" }
+    ]
+  }
+}

@@ -2,45 +2,33 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  
-  // Use sessionStorage for the active user ID to keep localStorage focused on registry
   const loggedInUser = sessionStorage.getItem("loggedInUser");
 
   const handleLogout = () => {
     sessionStorage.removeItem("loggedInUser");
-    localStorage.removeItem("loggedInUser"); // Just in case
+    localStorage.removeItem("loggedInUser");
     alert("Logged out successfully.");
     navigate("/login");
-  };
-
-  // Helper to get display name from consolidated storage
-  const getDisplayName = () => {
-    if (loggedInUser === "admin@portal.com") return "Admin";
-    const userJson = localStorage.getItem(`user_${loggedInUser}`);
-    if (userJson) {
-      try {
-        return JSON.parse(userJson).name;
-      } catch (e) {
-        return userJson; // Fallback for old simple string data
-      }
-    }
-    return loggedInUser;
   };
 
   return (
     <nav className="nav">
       <Link to="/" style={{ textDecoration: 'none' }}>
-        <h2>JobPortal</h2>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: "white", margin: 0 }}>Job Portal System</h2>
       </Link>
-      <div>
-        <Link to="/">Jobs</Link>
-        <Link to="/admin">Admin Dashboard</Link>
+      
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/contact">Contact</Link>
+        <Link to="/jobs">Jobs</Link>
+        <Link to="/admin">AdminDashboard</Link>
+        
         {loggedInUser ? (
           <>
-            <span className="user-name" style={{ marginLeft: "10px", color: "var(--text-muted)", fontSize: "0.85rem" }}>
-              Hi, {getDisplayName()}
+            <span style={{ marginLeft: "20px", color: "white", opacity: 0.9 }}>
+              Welcome, {loggedInUser.split("@")[0]}!
             </span>
-            <button onClick={handleLogout} className="btn" style={{ marginLeft: "10px", padding: "5px 12px", fontSize: "0.80rem" }}>
+            <button onClick={handleLogout} className="btn-logout">
               Logout
             </button>
           </>
