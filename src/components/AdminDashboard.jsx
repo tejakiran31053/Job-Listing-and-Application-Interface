@@ -1,10 +1,10 @@
 import { getLogoUrl } from "../data/jobs";
 
 export default function AdminDashboard() {
-  const apps = JSON.parse(localStorage.getItem("apps")) || [];
+  const apps = JSON.parse(sessionStorage.getItem("apps")) || JSON.parse(localStorage.getItem("apps")) || [];
   const loggedInUser = localStorage.getItem("loggedInUser");
 
-  if (loggedInUser !== "Admin") {
+  if (loggedInUser !== "admin@portal.com") {
     return (
       <div className="container" style={{ textAlign: "center", marginTop: "50px" }}>
         <h2>Access Denied</h2>

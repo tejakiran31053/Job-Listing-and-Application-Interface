@@ -16,22 +16,29 @@ export default function JobDetails() {
       return;
     }
 
-    const existing = JSON.parse(localStorage.getItem("apps")) || [];
+    // Move apps to sessionStorage and cleanup localStorage
+    const existing = JSON.parse(sessionStorage.getItem("apps")) || JSON.parse(localStorage.getItem("apps")) || [];
+    localStorage.removeItem("apps"); // Cleanup old persistent data
+
     const alreadyApplied = existing.find(
-      (a) => a.company === company.name && a.role === company.role && a.name === loggedInUser
+      (a) => a.company === company.name && a.role === company.role && a.userEmail === loggedInUser
     );
     if (alreadyApplied) {
       alert(`You already applied to ${company.name} for ${company.role}.`);
       return;
     }
 
+    // Get display name from session (mockup only)
+    const displayName = sessionStorage.getItem("registeredName") || loggedInUser.split('@')[0];
+
     existing.push({
-      name: loggedInUser,
+      name: displayName,
+      userEmail: loggedInUser,
       role: company.role,
       company: company.name,
       domain: company.domain,
     });
-    localStorage.setItem("apps", JSON.stringify(existing));
+    sessionStorage.setItem("apps", JSON.stringify(existing));
     alert(`✅ Applied to ${company.name} as ${company.role}!`);
   };
 

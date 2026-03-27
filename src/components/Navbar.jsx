@@ -18,7 +18,7 @@ export default function Navbar() {
         {loggedInUser ? (
           <>
             <span className="user-name" style={{ marginLeft: "10px", color: "var(--text-muted)", fontSize: "0.85rem" }}>
-              Hi, {loggedInUser}
+              Hi, {sessionStorage.getItem("registeredName") || (loggedInUser === "admin@portal.com" ? "Admin" : loggedInUser)}
             </span>
             <button onClick={handleLogout} className="btn" style={{ marginLeft: "10px", padding: "5px 12px", fontSize: "0.8rem" }}>
               Logout

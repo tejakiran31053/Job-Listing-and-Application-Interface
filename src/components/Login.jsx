@@ -8,17 +8,17 @@ export default function Login() {
 
   const handleLogin = () => {
     if (email === "admin" && pass === "123456") {
-      localStorage.setItem("loggedInUser", "Admin");
+      localStorage.setItem("loggedInUser", "admin@portal.com");
       alert("Admin Login Success");
       navigate("/admin");
     } else {
-      // Use registered name if email matches, else use email prefix
-      const registeredEmail = localStorage.getItem("registeredEmail");
-      const registeredName = localStorage.getItem("registeredName");
-      const registeredPass = localStorage.getItem("registeredPass");
+      // Use sessionStorage for mockup verification
+      const registeredEmail = sessionStorage.getItem("registeredEmail");
+      const registeredName = sessionStorage.getItem("registeredName");
+      const registeredPass = sessionStorage.getItem("registeredPass");
 
       if (email === registeredEmail && pass === registeredPass) {
-        localStorage.setItem("loggedInUser", registeredName);
+        localStorage.setItem("loggedInUser", email);
         alert(`Welcome, ${registeredName}!`);
         navigate("/");
       } else {
