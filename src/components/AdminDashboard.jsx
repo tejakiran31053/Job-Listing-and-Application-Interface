@@ -2,6 +2,17 @@ import { getLogoUrl } from "../data/jobs";
 
 export default function AdminDashboard() {
   const apps = JSON.parse(localStorage.getItem("apps")) || [];
+  const loggedInUser = localStorage.getItem("loggedInUser");
+
+  if (loggedInUser !== "Admin") {
+    return (
+      <div className="container" style={{ textAlign: "center", marginTop: "50px" }}>
+        <h2>Access Denied</h2>
+        <p>You do not have permission to view this page.</p>
+        <button className="btn" onClick={() => window.location.href = "/"}>Back to Home</button>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

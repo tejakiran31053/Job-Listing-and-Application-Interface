@@ -7,8 +7,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (email === "admin@gmail.com" && pass === "admin") {
+    if (email === "admin" && pass === "123456") {
       localStorage.setItem("loggedInUser", "Admin");
+      alert("Admin Login Success");
       navigate("/admin");
     } else {
       // Use registered name if email matches, else use email prefix
