@@ -1,8 +1,12 @@
 import { getLogoUrl } from "../data/jobs";
 
 export default function AdminDashboard() {
-  const apps = JSON.parse(sessionStorage.getItem("apps")) || JSON.parse(localStorage.getItem("apps")) || [];
-  const loggedInUser = localStorage.getItem("loggedInUser");
+  const appsJson = localStorage.getItem("apps");
+  const apps = JSON.parse(appsJson) || [];
+  const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+  // Clean persistent storage
+  if (localStorage.getItem("loggedInUser")) localStorage.removeItem("loggedInUser");
 
   if (loggedInUser !== "admin@portal.com") {
     return (

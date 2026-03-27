@@ -8,18 +8,19 @@ export default function Login() {
 
   const handleLogin = () => {
     if (email === "admin" && pass === "123456") {
-      localStorage.setItem("loggedInUser", "admin@portal.com");
+      sessionStorage.setItem("loggedInUser", "admin@portal.com");
+      localStorage.removeItem("loggedInUser"); // Clean persistent storage
       alert("Admin Login Success");
       navigate("/admin");
     } else {
-      // Use sessionStorage for mockup verification
-      const registeredEmail = sessionStorage.getItem("registeredEmail");
-      const registeredName = sessionStorage.getItem("registeredName");
-      const registeredPass = sessionStorage.getItem("registeredPass");
+      // Verify against consolidated persistent storage in localStorage
+      const userJson = localStorage.getItem(`user_${email}`);
+      const userData = userJson ? JSON.parse(userJson) : null;
 
-      if (email === registeredEmail && pass === registeredPass) {
-        localStorage.setItem("loggedInUser", email);
-        alert(`Welcome, ${registeredName}!`);
+      if (userData && pass === userData.pass) {
+        sessionStorage.setItem("loggedInUser", email);
+        localStorage.removeItem("loggedInUser"); // Clean persistent storage
+        alert(`Welcome, ${userData.name}!`);
         navigate("/");
       } else {
         alert("Invalid email or password.");

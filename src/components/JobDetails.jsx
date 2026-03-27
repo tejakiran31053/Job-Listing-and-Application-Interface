@@ -7,7 +7,11 @@ export default function JobDetails() {
   const jobId = parseInt(id);
   const job = jobs.find((j) => j.id === jobId);
   const companies = companiesByJob[jobId] || [];
-  const loggedInUser = localStorage.getItem("loggedInUser");
+  // Retrieve active session from sessionStorage to keep localStorage clean
+  const loggedInUser = sessionStorage.getItem("loggedInUser");
+  
+  // Cleanup any lingering localStorage session key
+  if (localStorage.getItem("loggedInUser")) localStorage.removeItem("loggedInUser");
 
   const handleApply = (company) => {
     if (!loggedInUser) {
@@ -16,9 +20,8 @@ export default function JobDetails() {
       return;
     }
 
-    // Move apps to sessionStorage and cleanup localStorage
-    const existing = JSON.parse(sessionStorage.getItem("apps")) || JSON.parse(localStorage.getItem("apps")) || [];
-    localStorage.removeItem("apps"); // Cleanup old persistent data
+    const appsJson = localStorage.getItem("apps");
+    const existing = JSON.parse(appsJson) || [];
 
     const alreadyApplied = existing.find(
       (a) => a.company === company.name && a.role === company.role && a.userEmail === loggedInUser
@@ -28,8 +31,10 @@ export default function JobDetails() {
       return;
     }
 
-    // Get display name from session (mockup only)
-    const displayName = sessionStorage.getItem("registeredName") || loggedInUser.split('@')[0];
+    // Get display name from consolidated persistent storage
+    const userJson = localStorage.getItem(`user_${loggedInUser}`);
+    const userData = userJson ? JSON.parse(userJson) : null;
+    const displayName = userData ? userData.name : loggedInUser.split('@')[0];
 
     existing.push({
       name: displayName,
@@ -38,7 +43,7 @@ export default function JobDetails() {
       company: company.name,
       domain: company.domain,
     });
-    sessionStorage.setItem("apps", JSON.stringify(existing));
+    localStorage.setItem("apps", JSON.stringify(existing));
     alert(`✅ Applied to ${company.name} as ${company.role}!`);
   };
 

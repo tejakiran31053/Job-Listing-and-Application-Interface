@@ -12,15 +12,23 @@ export default function Signup() {
       alert("Please fill in all fields.");
       return;
     }
-    // Use sessionStorage for temporary mockup data to keep localStorage clean
-    sessionStorage.setItem("registeredName", name.trim());
-    sessionStorage.setItem("registeredEmail", email.trim());
-    sessionStorage.setItem("registeredPass", pass.trim());
+    
+    // Consolidate name and password into one key for a cleaner "console" (localStorage)
+    const emailKey = email.trim();
+    const userData = {
+      name: name.trim(),
+      pass: pass.trim()
+    };
+    localStorage.setItem(`user_${emailKey}`, JSON.stringify(userData));
 
-    // Cleanup old localStorage keys if they exist
+    // Cleanup all old/unwanted keys
+    localStorage.removeItem(`pass_${emailKey}`);
     localStorage.removeItem("registeredName");
     localStorage.removeItem("registeredEmail");
     localStorage.removeItem("registeredPass");
+    sessionStorage.removeItem("registeredName");
+    sessionStorage.removeItem("registeredEmail");
+    sessionStorage.removeItem("registeredPass");
 
     alert("Registration successful! Please login to continue.");
     navigate("/login");
