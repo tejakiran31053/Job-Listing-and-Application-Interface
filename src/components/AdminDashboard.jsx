@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import "./AdminDashboard.css";
 
 export default function AdminDashboard() {
   const loggedInUser = sessionStorage.getItem("loggedInUser");
 
   if (loggedInUser !== "admin@portal.com") {
     return (
-      <div className="container" style={{ textAlign: "center", marginTop: "50px" }}>
+      <div className="container center-box">
         <h2>Access Denied</h2>
         <p>You do not have permission to view this page.</p>
         <Link to="/" className="btn">Back to Home</Link>
@@ -36,35 +37,28 @@ export default function AdminDashboard() {
 
         {apps.length === 0 ? (
           <div className="empty-state">
-            <span style={{ fontSize: "3rem", marginBottom: "1rem", display: "block" }}>📭</span>
+            <span className="empty-icon">📭</span>
             <p>No applications have been submitted yet.</p>
           </div>
         ) : (
-          <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+          <div className="card table-card">
             <table className="admin-table">
               <thead>
                 <tr>
                   <th>Student Name</th>
                   <th>Contact Email</th>
                   <th>Job Role</th>
-                  <th style={{ textAlign: "right" }}>Status</th>
+                  <th className="right">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {apps.map((app, index) => (
                   <tr key={index}>
-                    <td style={{ fontWeight: "600" }}>{app.name}</td>
-                    <td style={{ color: "var(--text-muted)" }}>{app.email}</td>
+                    <td className="name">{app.name}</td>
+                    <td className="email">{app.email}</td>
                     <td>{app.role}</td>
-                    <td style={{ textAlign: "right" }}>
-                      <span className="success" style={{ 
-                        background: "#dcfce7", 
-                        color: "#166534", 
-                        padding: "4px 10px", 
-                        borderRadius: "20px", 
-                        fontSize: "0.75rem",
-                        fontWeight: "600"
-                      }}>Received</span>
+                    <td className="right">
+                      <span className="status">Received</span>
                     </td>
                   </tr>
                 ))}
